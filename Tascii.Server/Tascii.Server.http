@@ -1,0 +1,6 @@
+@Tascii.Server_HostAddress = http://localhost:5207
+
+GET {{Tascii.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
