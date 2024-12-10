@@ -20,7 +20,7 @@ namespace Tascii.Server.Controllers
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
-        {
+        { //Returns a list of WeatherForecast objects. Use IEnumerable to send a list back
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Tascii.Server.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMemoryCache();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();//Allows Session Data to be accessed
+builder.Services.AddDbContext<TasciiDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TasciiContext")));
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -18,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 
